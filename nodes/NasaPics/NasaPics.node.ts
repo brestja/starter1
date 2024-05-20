@@ -7,7 +7,7 @@ export class NasaPics implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Consume Sahrpei Api',
+		description: 'Consume Sharpei Api',
 		defaults: {
 			name: 'Sharpei',
 		},
@@ -60,6 +60,10 @@ export class NasaPics implements INodeType {
 						name: 'Update a Variant',
 						value: 'updateVariant',
 					},
+					{
+						name: 'Get Status',
+						value: 'getStatus',
+					},
 				],
 				default: 'all',
 			},
@@ -68,7 +72,7 @@ export class NasaPics implements INodeType {
 			//         Operations
 			// ----------------------------------
 
-			   //Get all products
+			   //GET ALL PRODUCTS
 			{
 				displayName: 'Operation',
 				name: 'operation',
@@ -83,13 +87,19 @@ export class NasaPics implements INodeType {
 					{
 						name: 'Get Products',
 						value: 'getAll',
-						description: 'Get many items',
-						action: 'Get many items',
+						description: 'Get products',
+						routing: {
+							request: {
+							  method: 'GET',
+							  url: '/products'
+							}
+						}
+						//action: 'Get products',
 					},
 				],
 				default: 'getAll',
 			},
-			{   //Get product by remote Id
+			{   //GET PRODUCT BY REMOTE ID
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -104,12 +114,18 @@ export class NasaPics implements INodeType {
 						name: 'Get',
 						value: 'get',
 						description: 'Get a single product',
-						action: 'Get product',
+						routing: {
+							request: {
+							  method: 'GET',
+							  url: '={{"/products/" + $parameter["remoteId"]}}'
+							}
+						}
+						//action: 'Get product',
 					},
 				],
 				default: 'get',
 			},
-			{    //Create a product
+			{    //CREATE A PRODUCT
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -122,14 +138,50 @@ export class NasaPics implements INodeType {
 				options: [
 					{
 						name: 'Create a product',
-						value: 'post',
+						value: 'createProduct',
 						description: 'Create a product',
+						routing: {
+							request: {
+							  method: 'POST',
+							  url: '/products',
+							  body: '={{ JSON.parse($parameter["productDataJson"]) }}',
+
+
+							}
+						},
 						action: 'Create a product',
 					},
 				],
-				default: 'post',
+				default: 'createProduct',
+
 			},
-			{    //Update a product
+			{  //GET STATUS
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['getStatus'],
+					},
+				},
+				options: [
+					{
+						name: 'Get Status',
+						value: 'getStatus',
+						description: 'Get Status',
+						routing: {
+							request: {
+							  method: 'GET',
+							  url: '/status'
+							}
+						},
+						action: 'Get Status',
+					},
+				],
+				default: 'getStatus',
+			},
+			{    //UPDATE A PRODUCT////
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -149,7 +201,7 @@ export class NasaPics implements INodeType {
 				],
 				default: 'update',
 			},
-			{    //Create a Variant
+			{    //CREATE A VARIANT////
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -169,7 +221,7 @@ export class NasaPics implements INodeType {
 				],
 				default: 'create',
 			},
-			{    //Update a Variant
+			{    //UPDATE A VARIANT////
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -192,7 +244,7 @@ export class NasaPics implements INodeType {
 			// ----------------------------------
 			//         Fields
 			// ----------------------------------
-			{
+			{  //GET PRODUCT BY REMOTE ID FIELD////
 				displayName: 'Remote ID',
 				name: 'remoteId',
 				type: 'string',
@@ -206,7 +258,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{
+			/*{
 				displayName: 'Username',
 				name: 'username',
 				type: 'string',
@@ -219,8 +271,8 @@ export class NasaPics implements INodeType {
 						operation: ['get'],
 					},
 				},
-			},
-			{
+			},*/
+			{   //GET ALL PRODUCTS FIELD
 				displayName: 'Return All',
 				name: 'returnAll',
 				type: 'boolean',
@@ -250,7 +302,41 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{
+			/*{   //GET STATUS FIELD
+				displayName: 'Get Status',
+				name: 'getStatus',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to return all results or only up to a given limit',
+				displayOptions: {
+					show: {
+						resource: ['getStatus'],
+
+					},
+				},
+			},*/
+			{   //CREATE A PRODUCT FIELD
+				displayName: 'Product Data (JSON)',
+				name: 'productDataJson',
+				type: 'json',
+				default: JSON.stringify({
+					body: "Description of the product. (Data type: string)",
+					status_pid: "Identifier of the product's status. (Data type: string)",
+					title: "Title of the product. (Data type: string)",
+					slug: "TSlug of the product. (Data type: string)",
+					remote_id: "Remote identifier of the product. (Data type: number)",
+					value: "Price of the product. (Data type: string)",
+					tags: "List of product tags. (Data type: array)"
+				}, null, 2),
+				description: 'Product data in JSON format',
+				displayOptions: {
+					show: {
+						resource: ['createProduct'],
+						operation: ['createProduct'],
+					},
+				},
+			},
+			/*{
 				displayName: 'Additional Fields',
 				name: 'additionalFields',
 				type: 'collection',
@@ -332,7 +418,7 @@ export class NasaPics implements INodeType {
 						description: 'Tags for filtering the results of the query',
 					},
 				],
-			},
+			},*/
 		],
 	};
 }
