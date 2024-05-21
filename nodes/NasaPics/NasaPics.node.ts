@@ -1,9 +1,10 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
+
 export class NasaPics implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Sharpei',
 		name: 'NasaPics',
-		icon: 'file:sharpei_png_120.png',
+		icon: 'file:sharpei_png_500.png',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -37,36 +38,34 @@ export class NasaPics implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'All',
+						name: 'Product',
 						value: 'all',
 					},
 					{
-						name: 'Get product by remote Id',
+						name: 'Product',
 						value: 'getProduct',
 					},
 					{
-						name: 'Create a Product',
+						name: 'Product',
 						value: 'createProduct',
 					},
 					{
-						name: 'Update a Product',
-						value: 'updateProduct',
+						name: 'Product',
+						value: 'getSingleProduct',
 					},
 					{
-						name: 'Create a Variant',
+						name: 'Variants',
 						value: 'createVariant',
 					},
 					{
-						name: 'Update a Variant',
-						value: 'updateVariant',
-					},
-					{
-						name: 'Get Status',
+						name: 'Status',
 						value: 'getStatus',
 					},
 				],
 				default: 'all',
 			},
+
+
 
 			// ----------------------------------
 			//         Operations
@@ -85,7 +84,7 @@ export class NasaPics implements INodeType {
 				},
 				options: [
 					{
-						name: 'Get Products',
+						name: 'Get all products',
 						value: 'getAll',
 						description: 'Get products',
 						routing: {
@@ -93,8 +92,8 @@ export class NasaPics implements INodeType {
 							  method: 'GET',
 							  url: '/products'
 							}
-						}
-						//action: 'Get products',
+						},
+						action: 'Get all products',
 					},
 				],
 				default: 'getAll',
@@ -111,7 +110,7 @@ export class NasaPics implements INodeType {
 				},
 				options: [
 					{
-						name: 'Get',
+						name: 'Get product by remote Id',
 						value: 'get',
 						description: 'Get a single product',
 						routing: {
@@ -119,11 +118,37 @@ export class NasaPics implements INodeType {
 							  method: 'GET',
 							  url: '={{"/products/" + $parameter["remoteId"]}}'
 							}
-						}
-						//action: 'Get product',
+						},
+						action: 'Get product by remote Id',
 					},
 				],
 				default: 'get',
+			},
+			{   //GET A SINGLE PRODUCT
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['getSingleProduct'],
+					},
+				},
+				options: [
+					{
+						name: 'Get a single product',
+						value: 'getSingleProduct',
+						description: 'Get a single product',
+						routing: {
+							request: {
+							  method: 'GET',
+							  url: '={{"/products/" + $parameter["pid"]}}'
+							}
+						},
+						action: 'Get a single product',
+					},
+				],
+				default: 'getSingleProduct',
 			},
 			{    //CREATE A PRODUCT
 				displayName: 'Operation',
@@ -145,6 +170,23 @@ export class NasaPics implements INodeType {
 							  method: 'POST',
 							  url: '/products',
 							  body: '={{ JSON.parse($parameter["productDataJson"]) }}',
+							  headers: {
+								Accept: '*/*',
+								'Content-Type': 'application/json',
+								'Accept-Encoding': 'gzip, deflate, br',
+								'Connection': 'keep-alive',
+								'authority': 'api.dev.gosharpei.com',
+								'accept-language': 'es-ES,es;q=0.9',
+								'origin': 'https://app.dev.gosharpei.com',
+								'referer': 'https://app.dev.gosharpei.com/',
+								'sec-ch-ua': '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
+								'sec-ch-ua-mobile': '?0',
+								'sec-ch-ua-platform': '"Windows"',
+								'sec-fetch-dest': 'empty',
+								'sec-fetch-mode': 'cors',
+								'sec-fetch-site': 'same-site',
+								'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+							},
 
 
 							}
@@ -153,6 +195,53 @@ export class NasaPics implements INodeType {
 					},
 				],
 				default: 'createProduct',
+
+			},
+			{    //CREATE A VARIANT
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['createVariant'],
+					},
+				},
+				options: [
+					{
+						name: 'Create a variant',
+						value: 'createVariant',
+						description: 'Create a variant',
+						routing: {
+							request: {
+							  method: 'POST',
+							  url: '={{"/products/" + $parameter["productPid"]}}/variants/multiple',
+							  body: '={{ JSON.parse($parameter["productDataJson"]) }}',
+							  headers: {
+								Accept: '*/*',
+								'Content-Type': 'application/json',
+								'Accept-Encoding': 'gzip, deflate, br',
+								'Connection': 'keep-alive',
+								'authority': 'api.dev.gosharpei.com',
+								'accept-language': 'es-ES,es;q=0.9',
+								'origin': 'https://app.dev.gosharpei.com',
+								'referer': 'https://app.dev.gosharpei.com/',
+								'sec-ch-ua': '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
+								'sec-ch-ua-mobile': '?0',
+								'sec-ch-ua-platform': '"Windows"',
+								'sec-fetch-dest': 'empty',
+								'sec-fetch-mode': 'cors',
+								'sec-fetch-site': 'same-site',
+								'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+							},
+
+
+							}
+						},
+						action: 'Create a variant',
+					},
+				],
+				default: 'createVariant',
 
 			},
 			{  //GET STATUS
@@ -181,66 +270,6 @@ export class NasaPics implements INodeType {
 				],
 				default: 'getStatus',
 			},
-			{    //UPDATE A PRODUCT////
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: {
-					show: {
-						resource: ['updateProduct'],
-					},
-				},
-				options: [
-					{
-						name: 'Update a product',
-						value: 'update',
-						description: 'Update a product',
-						action: 'Update a product',
-					},
-				],
-				default: 'update',
-			},
-			{    //CREATE A VARIANT////
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: {
-					show: {
-						resource: ['createVariant'],
-					},
-				},
-				options: [
-					{
-						name: 'Create a Variant',
-						value: 'create',
-						description: 'Create a Variant',
-						action: 'Create a Variant',
-					},
-				],
-				default: 'create',
-			},
-			{    //UPDATE A VARIANT////
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: {
-					show: {
-						resource: ['updateVariant'],
-					},
-				},
-				options: [
-					{
-						name: 'Update a Variant',
-						value: 'update',
-						description: 'Update a Variant',
-						action: 'Update a Variant',
-					},
-				],
-				default: 'update',
-			},
 			// ----------------------------------
 			//         Fields
 			// ----------------------------------
@@ -255,6 +284,34 @@ export class NasaPics implements INodeType {
 					show: {
 						resource: ['getProduct'],
 						operation: ['get'],
+					},
+				},
+			},
+			{  //GET SINGLE PRODUCT FIELD////
+				displayName: 'PID',
+				name: 'pid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the product',
+				displayOptions: {
+					show: {
+						resource: ['getSingleProduct'],
+						operation: ['getSingleProduct'],
+					},
+				},
+			},
+			{  //CREATE A VARIANT FIELD////
+				displayName: 'Product Pid',
+				name: 'productPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the product',
+				displayOptions: {
+					show: {
+						resource: ['createVariant'],
+						operation: ['createVariant'],
 					},
 				},
 			},
@@ -333,6 +390,29 @@ export class NasaPics implements INodeType {
 					show: {
 						resource: ['createProduct'],
 						operation: ['createProduct'],
+					},
+				},
+			},
+			{   //CREATE A VARIANT FIELD JSON
+				displayName: 'Variant Data (JSON)',
+				name: 'productDataJson',
+				type: 'json',
+				default: JSON.stringify([
+					{
+						"selling_price": "{{ $('WooCommerce').item.json.price}}",
+						"title": "{{ $('WooCommerce').item.json.name }}",
+						"SKU": "{{ $('WooCommerce').item.json.sku }}",
+						"remote_id": "{{ $('WooCommerce').item.json.id }}",
+						"barcode": "",
+						"cost" : "0"
+
+					}
+				] , null, 2),
+				description: 'Variant data in JSON format',
+				displayOptions: {
+					show: {
+						resource: ['createVariant'],
+						operation: ['createVariant'],
 					},
 				},
 			},
