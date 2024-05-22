@@ -54,6 +54,10 @@ export class NasaPics implements INodeType {
 						value: 'getSingleProduct',
 					},
 					{
+						name: 'Product',
+						value: 'updateProduct',
+					},
+					{
 						name: 'Variants',
 						value: 'createVariant',
 					},
@@ -173,22 +177,7 @@ export class NasaPics implements INodeType {
 							  headers: {
 								Accept: '*/*',
 								'Content-Type': 'application/json',
-								'Accept-Encoding': 'gzip, deflate, br',
-								'Connection': 'keep-alive',
-								'authority': 'api.dev.gosharpei.com',
-								'accept-language': 'es-ES,es;q=0.9',
-								'origin': 'https://app.dev.gosharpei.com',
-								'referer': 'https://app.dev.gosharpei.com/',
-								'sec-ch-ua': '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
-								'sec-ch-ua-mobile': '?0',
-								'sec-ch-ua-platform': '"Windows"',
-								'sec-fetch-dest': 'empty',
-								'sec-fetch-mode': 'cors',
-								'sec-fetch-site': 'same-site',
-								'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
 							},
-
-
 							}
 						},
 						action: 'Create a product',
@@ -216,23 +205,10 @@ export class NasaPics implements INodeType {
 							request: {
 							  method: 'POST',
 							  url: '={{"/products/" + $parameter["productPid"]}}/variants/multiple',
-							  body: '={{ JSON.parse($parameter["productDataJson"]) }}',
+							  body: '={{ JSON.parse($parameter["productDataJson1"]) }}',
 							  headers: {
 								Accept: '*/*',
 								'Content-Type': 'application/json',
-								'Accept-Encoding': 'gzip, deflate, br',
-								'Connection': 'keep-alive',
-								'authority': 'api.dev.gosharpei.com',
-								'accept-language': 'es-ES,es;q=0.9',
-								'origin': 'https://app.dev.gosharpei.com',
-								'referer': 'https://app.dev.gosharpei.com/',
-								'sec-ch-ua': '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
-								'sec-ch-ua-mobile': '?0',
-								'sec-ch-ua-platform': '"Windows"',
-								'sec-fetch-dest': 'empty',
-								'sec-fetch-mode': 'cors',
-								'sec-fetch-site': 'same-site',
-								'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
 							},
 
 
@@ -242,6 +218,38 @@ export class NasaPics implements INodeType {
 					},
 				],
 				default: 'createVariant',
+
+			},
+			{    //UPDATE A PRODUCT
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['updateProduct'],
+					},
+				},
+				options: [
+					{
+						name: 'Update a Product',
+						value: 'updateProduct',
+						description: 'Update a Product',
+						routing: {
+							request: {
+							  method: 'PUT',
+							  url: '={{"/products/" + $parameter["productPid"]}}',
+							  body: '={{ JSON.parse($parameter["productDataJson2"]) }}',
+							  headers: {
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+							},
+							}
+						},
+						action: 'Update a Product',
+					},
+				],
+				default: 'updateProduct',
 
 			},
 			{  //GET STATUS
@@ -315,20 +323,6 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			/*{
-				displayName: 'Username',
-				name: 'username',
-				type: 'string',
-				required: true,
-				default: '',
-				description: 'The Hacker News user to be returned',
-				displayOptions: {
-					show: {
-						resource: ['user'],
-						operation: ['get'],
-					},
-				},
-			},*/
 			{   //GET ALL PRODUCTS FIELD
 				displayName: 'Return All',
 				name: 'returnAll',
@@ -395,16 +389,16 @@ export class NasaPics implements INodeType {
 			},
 			{   //CREATE A VARIANT FIELD JSON
 				displayName: 'Variant Data (JSON)',
-				name: 'productDataJson',
+				name: 'productDataJson1',
 				type: 'json',
 				default: JSON.stringify([
 					{
-						"selling_price": "{{ $('WooCommerce').item.json.price}}",
-						"title": "{{ $('WooCommerce').item.json.name }}",
-						"SKU": "{{ $('WooCommerce').item.json.sku }}",
-						"remote_id": "{{ $('WooCommerce').item.json.id }}",
+						"selling_price": "",
+						"title": "",
+						"SKU": "",
+						"remote_id": "",
 						"barcode": "",
-						"cost" : "0"
+						"cost" : ""
 
 					}
 				] , null, 2),
@@ -413,6 +407,39 @@ export class NasaPics implements INodeType {
 					show: {
 						resource: ['createVariant'],
 						operation: ['createVariant'],
+					},
+				},
+			},
+			{  //UPDATE A PRODUCT FIELD////
+				displayName: 'Product Pid',
+				name: 'productPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the product',
+				displayOptions: {
+					show: {
+						resource: ['updateProduct'],
+						operation: ['updateProduct'],
+					},
+				},
+			},
+			{   //UPDATE A PRODUCT FIELD JSON
+				displayName: 'Product Data (JSON)',
+				name: 'productDataJson2',
+				type: 'json',
+				default: JSON.stringify(
+					{
+						"title": "",
+						"body": "",
+						"status_pid": ""
+					}
+				, null, 2),
+				description: 'Product data in JSON format',
+				displayOptions: {
+					show: {
+						resource: ['updateProduct'],
+						operation: ['updateProduct'],
 					},
 				},
 			},
