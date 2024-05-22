@@ -62,6 +62,10 @@ export class NasaPics implements INodeType {
 						value: 'createVariant',
 					},
 					{
+						name: 'Variants',
+						value: 'updateVariant',
+					},
+					{
 						name: 'Status',
 						value: 'getStatus',
 					},
@@ -252,6 +256,38 @@ export class NasaPics implements INodeType {
 				default: 'updateProduct',
 
 			},
+			{    //UPDATE A VARIANT
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['updateVariant'],
+					},
+				},
+				options: [
+					{
+						name: 'Update a Variant',
+						value: 'updateVariant',
+						description: 'Update a Variant',
+						routing: {
+							request: {
+							  method: 'PUT',
+							  url: '={{"/products/" + $parameter["productPid"] + "/variants/" + $parameter["variantPid"] }}',
+							  body: '={{ JSON.parse($parameter["productDataJson3"]) }}',
+							  headers: {
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+							},
+							}
+						},
+						action: 'Update a Variant',
+					},
+				],
+				default: 'updateVariant',
+
+			},
 			{  //GET STATUS
 				displayName: 'Operation',
 				name: 'operation',
@@ -296,7 +332,7 @@ export class NasaPics implements INodeType {
 				},
 			},
 			{  //GET SINGLE PRODUCT FIELD////
-				displayName: 'PID',
+				displayName: 'Product PID',
 				name: 'pid',
 				type: 'string',
 				required: true,
@@ -320,6 +356,54 @@ export class NasaPics implements INodeType {
 					show: {
 						resource: ['createVariant'],
 						operation: ['createVariant'],
+					},
+				},
+			},
+			{  //UPDATE A VARIANT FIELD////
+				displayName: 'Product Pid',
+				name: 'productPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the product',
+				displayOptions: {
+					show: {
+						resource: ['updateVariant'],
+						operation: ['updateVariant'],
+					},
+				},
+			},
+			{  //UPDATE A VARIANT FIELD 2 ////
+				displayName: 'Variant Pid',
+				name: 'variantPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the Variant',
+				displayOptions: {
+					show: {
+						resource: ['updateVariant'],
+						operation: ['updateVariant'],
+					},
+				},
+			},
+			{   //UPDATE A VARIANT FIELD
+				displayName: 'Variant Data (JSON)',
+				name: 'productDataJson3',
+				type: 'json',
+				default: JSON.stringify({
+					"pid": "",
+					"title": "",
+					"SKU": "",
+					"barcode": "",
+					"cost": "",
+					"selling_price": ""
+				}, null, 2),
+				description: 'Variant data in JSON format',
+				displayOptions: {
+					show: {
+						resource: ['updateVariant'],
+						operation: ['updateVariant'],
 					},
 				},
 			},
@@ -353,19 +437,6 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			/*{   //GET STATUS FIELD
-				displayName: 'Get Status',
-				name: 'getStatus',
-				type: 'boolean',
-				default: false,
-				description: 'Whether to return all results or only up to a given limit',
-				displayOptions: {
-					show: {
-						resource: ['getStatus'],
-
-					},
-				},
-			},*/
 			{   //CREATE A PRODUCT FIELD
 				displayName: 'Product Data (JSON)',
 				name: 'productDataJson',
