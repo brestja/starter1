@@ -66,6 +66,10 @@ export class NasaPics implements INodeType {
 						value: 'updateVariant',
 					},
 					{
+						name: 'Variants',
+						value: 'deleteVariant',
+					},
+					{
 						name: 'Status',
 						value: 'getStatus',
 					},
@@ -288,6 +292,37 @@ export class NasaPics implements INodeType {
 				default: 'updateVariant',
 
 			},
+			{    //DELETE A VARIANT
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['deleteVariant'],
+					},
+				},
+				options: [
+					{
+						name: 'Delete a Variant',
+						value: 'deleteVariant',
+						description: 'Delete a Variant',
+						routing: {
+							request: {
+							  method: 'DELETE',
+							  url: '={{"/products/" + $parameter["productPid"] + "/variants/" + $parameter["variantPid"] }}',
+							  headers: {
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+							},
+							}
+						},
+						action: 'Delete a Variant',
+					},
+				],
+				default: 'deleteVariant',
+
+			},
 			{  //GET STATUS
 				displayName: 'Operation',
 				name: 'operation',
@@ -359,7 +394,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{  //UPDATE A VARIANT FIELD////
+			{  //UPDATE A VARIANT FIELD 1
 				displayName: 'Product Pid',
 				name: 'productPid',
 				type: 'string',
@@ -387,7 +422,35 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{   //UPDATE A VARIANT FIELD
+			{  //DELETE A VARIANT FIELD 1
+				displayName: 'Product Pid',
+				name: 'productPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the product',
+				displayOptions: {
+					show: {
+						resource: ['deleteVariant'],
+						operation: ['deleteVariant'],
+					},
+				},
+			},
+			{  //DELETE A VARIANT FIELD 2 ////
+				displayName: 'Variant Pid',
+				name: 'variantPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the Variant',
+				displayOptions: {
+					show: {
+						resource: ['deleteVariant'],
+						operation: ['deleteVariant'],
+					},
+				},
+			},
+			{   //UPDATE A VARIANT FIELD JSON
 				displayName: 'Variant Data (JSON)',
 				name: 'productDataJson3',
 				type: 'json',
@@ -437,7 +500,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{   //CREATE A PRODUCT FIELD
+			{   //CREATE A PRODUCT FIELD JSON
 				displayName: 'Product Data (JSON)',
 				name: 'productDataJson',
 				type: 'json',
