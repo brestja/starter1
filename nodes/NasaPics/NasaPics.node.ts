@@ -70,6 +70,10 @@ export class NasaPics implements INodeType {
 						value: 'deleteVariant',
 					},
 					{
+						name: 'Variants',
+						value: 'deleteImage',
+					},
+					{
 						name: 'Status',
 						value: 'getStatus',
 					},
@@ -323,6 +327,37 @@ export class NasaPics implements INodeType {
 				default: 'deleteVariant',
 
 			},
+			{    //DELETE AN IMAGE
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['deleteImage'],
+					},
+				},
+				options: [
+					{
+						name: 'Delete an Image',
+						value: 'deleteImage',
+						description: 'Delete an Image',
+						routing: {
+							request: {
+							  method: 'DELETE',
+							  url: '={{"/images/" + $parameter["imagePid"] }}',
+							  headers: {
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+							},
+							}
+						},
+						action: 'Delete an Image',
+					},
+				],
+				default: 'deleteImage',
+
+			},
 			{  //GET STATUS
 				displayName: 'Operation',
 				name: 'operation',
@@ -377,6 +412,20 @@ export class NasaPics implements INodeType {
 					show: {
 						resource: ['getSingleProduct'],
 						operation: ['getSingleProduct'],
+					},
+				},
+			},
+			{  //DELETE AN IMAGE FIELD////
+				displayName: 'Image PID',
+				name: 'imagePid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Image Pid',
+				displayOptions: {
+					show: {
+						resource: ['deleteImage'],
+						operation: ['deleteImage'],
 					},
 				},
 			},
