@@ -12,7 +12,7 @@ export const productOperations: INodeProperties[] = [
 			},
 		},
 		options: [
-			{
+			{//GET ALL PRODUCTS
 				name: 'Get all products',
 				value: 'getAll',
 				description: 'Get products',
@@ -24,7 +24,7 @@ export const productOperations: INodeProperties[] = [
 				},
 				action: 'Get all products',
 			},
-			{
+			{//GET PRODUCT BY REMOTE ID
 				name: 'Get product by remote Id',
 				value: 'get',
 				description: 'Get a single product',
@@ -36,7 +36,7 @@ export const productOperations: INodeProperties[] = [
 				},
 				action: 'Get product by remote Id',
 			},
-			{
+			{//GET A SINGLE PRODUCT
 				name: 'Get a single product',
 				value: 'getSingleProduct',
 				description: 'Get a single product',
@@ -48,7 +48,7 @@ export const productOperations: INodeProperties[] = [
 				},
 				action: 'Get a single product',
 			},
-			{
+			{//CREATE A PRODUCT
 				name: 'Create a product',
 				value: 'createProduct',
 				description: 'Create a product',
@@ -65,7 +65,7 @@ export const productOperations: INodeProperties[] = [
 				},
 				action: 'Create a product',
 			},
-			{
+			{//UPDATE A PRODUCT
 				name: 'Update a Product',
 				value: 'updateProduct',
 				description: 'Update a Product',
@@ -81,6 +81,17 @@ export const productOperations: INodeProperties[] = [
 					}
 				},
 				action: 'Update a Product',
+			},{//DELETE A PRODUCT
+				name: 'Delete a product',
+				value: 'deleteProduct',
+				description: 'Delete a product',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '={{"/products/" + $parameter["pid"]}}'
+					}
+				},
+				action: 'Delete a Product',
 			},
 		],
 		default: 'getAll',
@@ -199,6 +210,20 @@ export const productFields: INodeProperties[] = [
 			show: {
 				resource: ['Product'],
 				operation: ['updateProduct'],
+			},
+		},
+	},
+	{  //DELETE A PRODUCT FIELD////
+		displayName: 'Product PID',
+		name: 'pid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Pid of the product',
+		displayOptions: {
+			show: {
+				resource: ['product'],
+				operation: ['deleteProduct'],
 			},
 		},
 	},

@@ -75,6 +75,10 @@ export class NasaPics implements INodeType {
 						value: 'deleteImage',
 					},
 					{
+						name: 'Variants',
+						value: 'addImageToVariant',
+					},
+					{
 						name: 'Status',
 						value: 'getStatus',
 					},
@@ -302,7 +306,7 @@ export class NasaPics implements INodeType {
 					},
 				],
 				default: 'createOptions',
-            },
+      },
 			{    //UPDATE A VARIANT
 				displayName: 'Operation',
 				name: 'operation',
@@ -321,7 +325,7 @@ export class NasaPics implements INodeType {
 						routing: {
 							request: {
 							  method: 'PUT',
-							  url: '={{"/products/" + $parameter["productPid"] + "/variants/" + $parameter["variantPid"] }}',
+							  url: '={{"/products/" + $parameter["productPid"] + "/variants/" + $parameter["variantPid"] + "/images" }}',
 							  body: '={{ JSON.parse($parameter["productDataJson3"]) }}',
 							  headers: {
 								Accept: 'application/json',
@@ -333,6 +337,38 @@ export class NasaPics implements INodeType {
 					},
 				],
 				default: 'updateVariant',
+
+			},
+			{    //ADD IMAGE TO A PRODUCT VARIANT
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['addImageToVariant'],
+					},
+				},
+				options: [
+					{
+						name: 'Add image to a Product Variant',
+						value: 'addImageToVariant',
+						description: 'Add image to a Product Variant',
+						routing: {
+							request: {
+							  method: 'POST',
+							  url: '={{"/products/" + $parameter["productPid"] + "/variants/" + $parameter["variantPid"] + "/images" }}',
+							  body: '={{ JSON.parse($parameter["productDataJson3"]) }}',
+							  headers: {
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+							},
+							}
+						},
+						action: 'Add image to a Product Variant',
+					},
+				],
+				default: 'addImageToVariant',
 
 			},
 			{    //DELETE A VARIANT
@@ -510,6 +546,20 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
+			{  //ADD IMAGE TO A PRODUCT VARIANT FIELD
+				displayName: 'Product Pid',
+				name: 'productPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the product',
+				displayOptions: {
+					show: {
+						resource: ['addImageToVariant'],
+						operation: ['addImageToVariant'],
+					},
+				},
+			},
 			{  //UPDATE A VARIANT FIELD 2 ////
 				displayName: 'Variant Pid',
 				name: 'variantPid',
@@ -521,6 +571,20 @@ export class NasaPics implements INodeType {
 					show: {
 						resource: ['updateVariant'],
 						operation: ['updateVariant'],
+					},
+				},
+			},
+			{  //ADD IMAGE TO A PRODUCT VARIANT FIELD 2
+				displayName: 'Variant Pid',
+				name: 'variantPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the Variant',
+				displayOptions: {
+					show: {
+						resource: ['addImageToVariant'],
+						operation: ['addImageToVariant'],
 					},
 				},
 			},
@@ -593,6 +657,24 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
+			{//ADD IMAGE TO A PRODUCT VARIANT FORM
+        displayName: 'Attachment',
+        name: 'attachment',
+        type: 'string',
+        required: true,
+        default: '',
+        description: 'The file to upload as an attachment',
+        typeOptions: {
+            multipleValues: false,
+            multipleValueButtonText: 'Add Attachment',
+        },
+        displayOptions: {
+            show: {
+                resource: ['addImageToVariant'],
+                operation: ['addImageToVariant'],
+            },
+        },
+    },
 		/*	{   //GET ALL PRODUCTS FIELD
 				displayName: 'Return All',
 				name: 'returnAll',
