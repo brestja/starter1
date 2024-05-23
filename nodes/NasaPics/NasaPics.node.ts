@@ -77,6 +77,10 @@ export class NasaPics implements INodeType {
 						name: 'Status',
 						value: 'getStatus',
 					},
+					{
+						name: 'Options',
+						value: 'createOptions',
+					},
 				],
 				default: 'all',
 			},
@@ -230,6 +234,38 @@ export class NasaPics implements INodeType {
 					},
 				],
 				default: 'createVariant',
+
+			},
+			{    //CREATE OPTIONS
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['createOptions'],
+					},
+				},
+				options: [
+					{
+						name: 'Create Options',
+						value: 'createOptions',
+						description: 'Create Options',
+						routing: {
+							request: {
+							  method: 'POST',
+							  url: '={{"/products/" + $parameter["productPid"]}}/options',
+							  body: '={{ JSON.parse($parameter["productDataJson4"]) }}',
+							  headers: {
+								Accept: '*/*',
+								'Content-Type': 'application/json',
+							},
+							}
+						},
+						action: 'Create Options',
+					},
+				],
+				default: 'createOptions',
 
 			},
 			{    //UPDATE A PRODUCT
@@ -401,6 +437,20 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
+			{  //CREATE OPTIONS FIELD////
+				displayName: 'Product Pid',
+				name: 'productPid',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Pid of the product',
+				displayOptions: {
+					show: {
+						resource: ['createOptions'],
+						operation: ['createOptions'],
+					},
+				},
+			},
 			{  //GET SINGLE PRODUCT FIELD////
 				displayName: 'Product PID',
 				name: 'pid',
@@ -516,6 +566,27 @@ export class NasaPics implements INodeType {
 					show: {
 						resource: ['updateVariant'],
 						operation: ['updateVariant'],
+					},
+				},
+			},
+			{   //CREATE OPTIONS FIELD JSON
+				displayName: 'Product Data (JSON)',
+				name: 'productDataJson4',
+				type: 'json',
+				default: JSON.stringify({
+					"name": "",
+					"options_lines": [
+						{ "value": "" },
+						{ "value": "" }
+
+					]
+				}
+					 , null, 2),
+				description: 'Product data in JSON format',
+				displayOptions: {
+					show: {
+						resource: ['createOptions'],
+						operation: ['createOptions'],
 					},
 				},
 			},
