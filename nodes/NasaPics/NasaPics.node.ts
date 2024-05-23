@@ -1,4 +1,5 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
+import { productFields, productOperations } from './ProductDescription';
 
 export class NasaPics implements INodeType {
 	description: INodeTypeDescription = {
@@ -37,7 +38,7 @@ export class NasaPics implements INodeType {
 				type: 'options',
 				noDataExpression: true,
 				options: [
-					{
+				/*	{
 						name: 'Product',
 						value: 'all',
 					},
@@ -52,10 +53,10 @@ export class NasaPics implements INodeType {
 					{
 						name: 'Product',
 						value: 'getSingleProduct',
-					},
+					},*/
 					{
 						name: 'Product',
-						value: 'updateProduct',
+						value: 'product',
 					},
 					{
 						name: 'Variants',
@@ -85,6 +86,9 @@ export class NasaPics implements INodeType {
 				default: 'all',
 			},
 
+			...productOperations,
+			...productFields,
+
 
 
 			// ----------------------------------
@@ -92,7 +96,7 @@ export class NasaPics implements INodeType {
 			// ----------------------------------
 
 			   //GET ALL PRODUCTS
-			{
+		/*	{
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -191,7 +195,7 @@ export class NasaPics implements INodeType {
 							  url: '/products',
 							  body: '={{ JSON.parse($parameter["productDataJson"]) }}',
 							  headers: {
-								Accept: '*/*',
+								Accept: 'application/json',
 								'Content-Type': 'application/json',
 							},
 							}
@@ -202,6 +206,38 @@ export class NasaPics implements INodeType {
 				default: 'createProduct',
 
 			},
+			{    //UPDATE A PRODUCT
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['updateProduct'],
+					},
+				},
+				options: [
+					{
+						name: 'Update a Product',
+						value: 'updateProduct',
+						description: 'Update a Product',
+						routing: {
+							request: {
+							  method: 'PUT',
+							  url: '={{"/products/" + $parameter["productPid"]}}',
+							  body: '={{ JSON.parse($parameter["productDataJson2"]) }}',
+							  headers: {
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+							},
+							}
+						},
+						action: 'Update a Product',
+					},
+				],
+				default: 'updateProduct',
+
+			},*/
 			{    //CREATE A VARIANT
 				displayName: 'Operation',
 				name: 'operation',
@@ -266,40 +302,7 @@ export class NasaPics implements INodeType {
 					},
 				],
 				default: 'createOptions',
-
-			},
-			{    //UPDATE A PRODUCT
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: {
-					show: {
-						resource: ['updateProduct'],
-					},
-				},
-				options: [
-					{
-						name: 'Update a Product',
-						value: 'updateProduct',
-						description: 'Update a Product',
-						routing: {
-							request: {
-							  method: 'PUT',
-							  url: '={{"/products/" + $parameter["productPid"]}}',
-							  body: '={{ JSON.parse($parameter["productDataJson2"]) }}',
-							  headers: {
-								Accept: 'application/json',
-								'Content-Type': 'application/json',
-							},
-							}
-						},
-						action: 'Update a Product',
-					},
-				],
-				default: 'updateProduct',
-
-			},
+            },
 			{    //UPDATE A VARIANT
 				displayName: 'Operation',
 				name: 'operation',
@@ -423,7 +426,7 @@ export class NasaPics implements INodeType {
 			// ----------------------------------
 			//         Fields
 			// ----------------------------------
-			{  //GET PRODUCT BY REMOTE ID FIELD////
+			/*{  //GET PRODUCT BY REMOTE ID FIELD////
 				displayName: 'Remote ID',
 				name: 'remoteId',
 				type: 'string',
@@ -436,7 +439,7 @@ export class NasaPics implements INodeType {
 						operation: ['get'],
 					},
 				},
-			},
+			},*/
 			{  //CREATE OPTIONS FIELD////
 				displayName: 'Product Pid',
 				name: 'productPid',
@@ -451,7 +454,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{  //GET SINGLE PRODUCT FIELD////
+			/*{  //GET SINGLE PRODUCT FIELD////
 				displayName: 'Product PID',
 				name: 'pid',
 				type: 'string',
@@ -464,7 +467,7 @@ export class NasaPics implements INodeType {
 						operation: ['getSingleProduct'],
 					},
 				},
-			},
+			},*/
 			{  //DELETE AN IMAGE FIELD////
 				displayName: 'Image PID',
 				name: 'imagePid',
@@ -590,7 +593,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{   //GET ALL PRODUCTS FIELD
+		/*	{   //GET ALL PRODUCTS FIELD
 				displayName: 'Return All',
 				name: 'returnAll',
 				type: 'boolean',
@@ -619,8 +622,8 @@ export class NasaPics implements INodeType {
 						returnAll: [false],
 					},
 				},
-			},
-			{   //CREATE A PRODUCT FIELD JSON
+			},*/
+		/*	{   //CREATE A PRODUCT FIELD JSON
 				displayName: 'Product Data (JSON)',
 				name: 'productDataJson',
 				type: 'json',
@@ -640,7 +643,7 @@ export class NasaPics implements INodeType {
 						operation: ['createProduct'],
 					},
 				},
-			},
+			},*/
 			{   //CREATE A VARIANT FIELD JSON
 				displayName: 'Variant Data (JSON)',
 				name: 'productDataJson1',
@@ -664,7 +667,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{  //UPDATE A PRODUCT FIELD////
+		/*	{  //UPDATE A PRODUCT FIELD////
 				displayName: 'Product Pid',
 				name: 'productPid',
 				type: 'string',
@@ -677,8 +680,8 @@ export class NasaPics implements INodeType {
 						operation: ['updateProduct'],
 					},
 				},
-			},
-			{   //UPDATE A PRODUCT FIELD JSON
+			},*/
+		/*	{   //UPDATE A PRODUCT FIELD JSON
 				displayName: 'Product Data (JSON)',
 				name: 'productDataJson2',
 				type: 'json',
@@ -696,7 +699,7 @@ export class NasaPics implements INodeType {
 						operation: ['updateProduct'],
 					},
 				},
-			},
+			},*/
 			/*{
 				displayName: 'Additional Fields',
 				name: 'additionalFields',
