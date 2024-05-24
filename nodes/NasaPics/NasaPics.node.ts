@@ -314,7 +314,7 @@ export class NasaPics implements INodeType {
 				],
 				default: 'createOptions',
       },
-			{    //UPDATE A VARIANT
+		/*	{    //UPDATE A VARIANT
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -345,7 +345,7 @@ export class NasaPics implements INodeType {
 				],
 				default: 'updateVariant',
 
-			},
+			},*/
 			{    //ADD IMAGE TO A PRODUCT VARIANT
 				displayName: 'Operation',
 				name: 'operation',
@@ -525,7 +525,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{  //CREATE A VARIANT FIELD////
+		/*	{  //CREATE A VARIANT FIELD////
 				displayName: 'Product Pid',
 				name: 'productPid',
 				type: 'string',
@@ -538,8 +538,8 @@ export class NasaPics implements INodeType {
 						operation: ['createVariant'],
 					},
 				},
-			},
-			{  //UPDATE A VARIANT FIELD 1
+			},*/
+		/*	{  //UPDATE A VARIANT FIELD 1
 				displayName: 'Product Pid',
 				name: 'productPid',
 				type: 'string',
@@ -552,7 +552,7 @@ export class NasaPics implements INodeType {
 						operation: ['updateVariant'],
 					},
 				},
-			},
+			},*/
 			{  //ADD IMAGE TO A PRODUCT VARIANT FIELD
 				displayName: 'Product Pid',
 				name: 'productPid',
@@ -567,7 +567,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{  //UPDATE A VARIANT FIELD 2 ////
+		/*	{  //UPDATE A VARIANT FIELD 2 ////
 				displayName: 'Variant Pid',
 				name: 'variantPid',
 				type: 'string',
@@ -580,7 +580,7 @@ export class NasaPics implements INodeType {
 						operation: ['updateVariant'],
 					},
 				},
-			},
+			},*/
 			{  //ADD IMAGE TO A PRODUCT VARIANT FIELD 2
 				displayName: 'Variant Pid',
 				name: 'variantPid',
@@ -623,7 +623,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{   //UPDATE A VARIANT FIELD JSON
+		/*	{   //UPDATE A VARIANT FIELD JSON
 				displayName: 'Variant Data (JSON)',
 				name: 'productDataJson3',
 				type: 'json',
@@ -642,7 +642,7 @@ export class NasaPics implements INodeType {
 						operation: ['updateVariant'],
 					},
 				},
-			},
+			},*/
 			{   //CREATE OPTIONS FIELD JSON
 				displayName: 'Product Data (JSON)',
 				name: 'productDataJson4',
