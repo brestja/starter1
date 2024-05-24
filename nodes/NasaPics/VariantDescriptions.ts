@@ -81,6 +81,22 @@ export const variantOperations: INodeProperties[] = [
 				},
 				action: 'Delete a Variant',
 			},
+			{
+				name: 'Delete an Image',
+				value: 'deleteImage',
+				description: 'Delete an Image',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '={{"/images/" + $parameter["imagePid"] }}',
+						headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+					}
+				},
+				action: 'Delete an Image',
+			},
 
 		],
 		default: 'createVariant',
@@ -96,6 +112,29 @@ export const variantFields: INodeProperties[] = [
 		required: true,
 		default: '',
 		description: 'Pid of the product',
+		displayOptions: {
+			show: {
+				resource: ['variants'],
+				operation: ['createVariant'],
+			},
+		},
+	},
+	{   //CREATE A VARIANT FIELD JSON
+		displayName: 'Variant Data (JSON)',
+		name: 'productDataJson1',
+		type: 'json',
+		default: JSON.stringify([
+			{
+				"selling_price": "",
+				"title": "",
+				"SKU": "",
+				"remote_id": "",
+				"barcode": "",
+				"cost" : ""
+
+			}
+		] , null, 2),
+		description: 'Variant data in JSON format',
 		displayOptions: {
 			show: {
 				resource: ['variants'],
@@ -222,6 +261,20 @@ export const variantFields: INodeProperties[] = [
 			show: {
 				resource: ['variants'],
 				operation: ['deleteVariant'],
+			},
+		},
+	},
+	{  //DELETE AN IMAGE FIELD////
+		displayName: 'Image PID',
+		name: 'imagePid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Image Pid',
+		displayOptions: {
+			show: {
+				resource: ['variants'],
+				operation: ['deleteImage'],
 			},
 		},
 	},

@@ -409,7 +409,7 @@ export class NasaPics implements INodeType {
 				default: 'deleteVariant',
 
 			},*/
-			{    //DELETE AN IMAGE
+		/*	{    //DELETE AN IMAGE
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -439,7 +439,7 @@ export class NasaPics implements INodeType {
 				],
 				default: 'deleteImage',
 
-			},
+			},*/
 			{  //GET STATUS
 				displayName: 'Operation',
 				name: 'operation',
@@ -511,7 +511,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},*/
-			{  //DELETE AN IMAGE FIELD////
+		/*	{  //DELETE AN IMAGE FIELD////
 				displayName: 'Image PID',
 				name: 'imagePid',
 				type: 'string',
@@ -524,7 +524,7 @@ export class NasaPics implements INodeType {
 						operation: ['deleteImage'],
 					},
 				},
-			},
+			},*/
 		/*	{  //CREATE A VARIANT FIELD////
 				displayName: 'Product Pid',
 				name: 'productPid',
@@ -733,7 +733,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},*/
-			{   //CREATE A VARIANT FIELD JSON
+		/*	{   //CREATE A VARIANT FIELD JSON
 				displayName: 'Variant Data (JSON)',
 				name: 'productDataJson1',
 				type: 'json',
@@ -755,7 +755,7 @@ export class NasaPics implements INodeType {
 						operation: ['createVariant'],
 					},
 				},
-			},
+			},*/
 		/*	{  //UPDATE A PRODUCT FIELD////
 				displayName: 'Product Pid',
 				name: 'productPid',
