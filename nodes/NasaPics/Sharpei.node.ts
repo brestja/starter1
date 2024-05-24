@@ -3,6 +3,7 @@ import { productFields, productOperations } from './ProductDescription';
 import { variantFields, variantOperations } from './VariantDescriptions';
 import { statusOperations } from './StatusDescription';
 import { optionsFields, optionsOperations } from './OptionsDescriptions';
+import { ordersOperations } from './OrdersDescription';
 
 export class Sharpei implements INodeType {
 	description: INodeTypeDescription = {
@@ -59,6 +60,10 @@ export class Sharpei implements INodeType {
 						name: 'Options',
 						value: 'options',
 					},
+					{
+						name: 'Orders',
+						value: 'orders',
+					},
 				],
 				default: 'product',
 			},
@@ -70,6 +75,8 @@ export class Sharpei implements INodeType {
 			...statusOperations,
 			...optionsOperations,
 			...optionsFields,
+			...ordersOperations,
+
 
 
 		]
