@@ -1,5 +1,6 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 import { productFields, productOperations } from './ProductDescription';
+import { variantFields, variantOperations } from './VariantDescriptions';
 
 export class NasaPics implements INodeType {
 	description: INodeTypeDescription = {
@@ -58,7 +59,7 @@ export class NasaPics implements INodeType {
 						name: 'Product',
 						value: 'product',
 					},
-					{
+				/*	{
 						name: 'Variants',
 						value: 'createVariant',
 					},
@@ -77,6 +78,10 @@ export class NasaPics implements INodeType {
 					{
 						name: 'Variants',
 						value: 'addImageToVariant',
+					},*/
+					{
+						name: 'Variants',
+						value: 'variants',
 					},
 					{
 						name: 'Status',
@@ -92,6 +97,8 @@ export class NasaPics implements INodeType {
 
 			...productOperations,
 			...productFields,
+			...variantOperations,
+			...variantFields,
 
 
 
@@ -242,7 +249,7 @@ export class NasaPics implements INodeType {
 				default: 'updateProduct',
 
 			},*/
-			{    //CREATE A VARIANT
+		/*	{    //CREATE A VARIANT
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -263,7 +270,7 @@ export class NasaPics implements INodeType {
 							  url: '={{"/products/" + $parameter["productPid"]}}/variants/multiple',
 							  body: '={{ JSON.parse($parameter["productDataJson1"]) }}',
 							  headers: {
-								Accept: '*/*',
+								Accept: 'application/json',
 								'Content-Type': 'application/json',
 							},
 
@@ -275,7 +282,7 @@ export class NasaPics implements INodeType {
 				],
 				default: 'createVariant',
 
-			},
+			},*/
 			{    //CREATE OPTIONS
 				displayName: 'Operation',
 				name: 'operation',
