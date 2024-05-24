@@ -4,11 +4,11 @@ import { variantFields, variantOperations } from './VariantDescriptions';
 import { statusOperations } from './StatusDescription';
 import { optionsFields, optionsOperations } from './OptionsDescriptions';
 
-export class NasaPics implements INodeType {
+export class Sharpei implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Sharpei',
-		name: 'NasaPics',
-		icon: 'file:sharpei_png_500.png',
+		name: 'Sharpei',
+		icon: 'file:logo.png',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -20,7 +20,7 @@ export class NasaPics implements INodeType {
 		outputs: ['main'],
 		credentials: [
 			{
-				name: 'NasaPicsApi',
+				name: 'SharpeiApi',
 				required: true,
 			},
 		],

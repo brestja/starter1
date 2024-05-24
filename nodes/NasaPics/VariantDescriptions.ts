@@ -12,7 +12,7 @@ export const variantOperations: INodeProperties[] = [
 			},
 		},
 		options: [
-			{
+			{ //CREATE A VARIANT
 				name: 'Create a variant',
 				value: 'createVariant',
 				description: 'Create a variant',
@@ -31,7 +31,7 @@ export const variantOperations: INodeProperties[] = [
 				},
 				action: 'Create a variant',
 			},
-			{
+			{ //UPDATE A VARIANT
 				name: 'Update a Variant',
 				value: 'updateVariant',
 				description: 'Update a Variant',
@@ -48,7 +48,7 @@ export const variantOperations: INodeProperties[] = [
 				},
 				action: 'Update a Variant',
 			},
-			{
+		/*	{ //ADD IMAGE TO A PRODUCT VARIANT
 				name: 'Add image to a Product Variant',
 				value: 'addImageToVariant',
 				description: 'Add image to a Product Variant',
@@ -64,8 +64,8 @@ export const variantOperations: INodeProperties[] = [
 					}
 				},
 				action: 'Add image to a Product Variant',
-			},
-			{
+			},*/
+			{ //DELETE A VARIANT
 				name: 'Delete a Variant',
 				value: 'deleteVariant',
 				description: 'Delete a Variant',
@@ -81,7 +81,7 @@ export const variantOperations: INodeProperties[] = [
 				},
 				action: 'Delete a Variant',
 			},
-			{
+			{ //DELETE IMAGE
 				name: 'Delete an Image',
 				value: 'deleteImage',
 				description: 'Delete an Image',
@@ -190,7 +190,7 @@ export const variantFields: INodeProperties[] = [
 			},
 		},
 	},
-	{  //ADD IMAGE TO A PRODUCT VARIANT FIELD
+/*	{  //ADD IMAGE TO A PRODUCT VARIANT FIELD
 		displayName: 'Product Pid',
 		name: 'productPid',
 		type: 'string',
@@ -236,6 +236,48 @@ export const variantFields: INodeProperties[] = [
 				},
 		},
 	},
+	{
+		displayName: 'Parameter Type',
+		name: 'parameterType',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Type of the parameter',
+		displayOptions: {
+				show: {
+						resource: ['variants'],
+						operation: ['addImageToVariant'],
+				},
+		},
+  },
+	{
+		displayName: 'Name',
+		name: 'name',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Name of the parameter',
+		displayOptions: {
+				show: {
+						resource: ['variants'],
+						operation: ['addImageToVariant'],
+				},
+		},
+  },
+	{
+		displayName: 'Input Data Field Name',
+		name: 'inputDataFieldName',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Input data field name',
+		displayOptions: {
+				show: {
+						resource: ['variants'],
+						operation: ['addImageToVariant'],
+				},
+		},
+  },*/
 	{  //DELETE A VARIANT FIELD 1
 		displayName: 'Product Pid',
 		name: 'productPid',
