@@ -346,7 +346,7 @@ export class NasaPics implements INodeType {
 				default: 'updateVariant',
 
 			},*/
-			{    //ADD IMAGE TO A PRODUCT VARIANT
+		/*	{    //ADD IMAGE TO A PRODUCT VARIANT
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -377,8 +377,8 @@ export class NasaPics implements INodeType {
 				],
 				default: 'addImageToVariant',
 
-			},
-			{    //DELETE A VARIANT
+			},*/
+		/*	{    //DELETE A VARIANT
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
@@ -408,7 +408,7 @@ export class NasaPics implements INodeType {
 				],
 				default: 'deleteVariant',
 
-			},
+			},*/
 			{    //DELETE AN IMAGE
 				displayName: 'Operation',
 				name: 'operation',
@@ -553,7 +553,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},*/
-			{  //ADD IMAGE TO A PRODUCT VARIANT FIELD
+		/*	{  //ADD IMAGE TO A PRODUCT VARIANT FIELD
 				displayName: 'Product Pid',
 				name: 'productPid',
 				type: 'string',
@@ -566,7 +566,7 @@ export class NasaPics implements INodeType {
 						operation: ['addImageToVariant'],
 					},
 				},
-			},
+			},*/
 		/*	{  //UPDATE A VARIANT FIELD 2 ////
 				displayName: 'Variant Pid',
 				name: 'variantPid',
@@ -581,7 +581,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},*/
-			{  //ADD IMAGE TO A PRODUCT VARIANT FIELD 2
+		/*	{  //ADD IMAGE TO A PRODUCT VARIANT FIELD 2
 				displayName: 'Variant Pid',
 				name: 'variantPid',
 				type: 'string',
@@ -594,8 +594,8 @@ export class NasaPics implements INodeType {
 						operation: ['addImageToVariant'],
 					},
 				},
-			},
-			{  //DELETE A VARIANT FIELD 1
+			},*/
+		/*	{  //DELETE A VARIANT FIELD 1
 				displayName: 'Product Pid',
 				name: 'productPid',
 				type: 'string',
@@ -622,7 +622,7 @@ export class NasaPics implements INodeType {
 						operation: ['deleteVariant'],
 					},
 				},
-			},
+			},*/
 		/*	{   //UPDATE A VARIANT FIELD JSON
 				displayName: 'Variant Data (JSON)',
 				name: 'productDataJson3',
@@ -664,7 +664,7 @@ export class NasaPics implements INodeType {
 					},
 				},
 			},
-			{//ADD IMAGE TO A PRODUCT VARIANT FORM
+		/*	{//ADD IMAGE TO A PRODUCT VARIANT FORM
         displayName: 'Attachment',
         name: 'attachment',
         type: 'string',
@@ -681,7 +681,7 @@ export class NasaPics implements INodeType {
                 operation: ['addImageToVariant'],
             },
         },
-    },
+    },*/
 		/*	{   //GET ALL PRODUCTS FIELD
 				displayName: 'Return All',
 				name: 'returnAll',

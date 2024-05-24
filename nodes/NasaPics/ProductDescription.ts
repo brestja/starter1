@@ -208,7 +208,7 @@ export const productFields: INodeProperties[] = [
 		description: 'Product data in JSON format',
 		displayOptions: {
 			show: {
-				resource: ['Product'],
+				resource: ['product'],
 				operation: ['updateProduct'],
 			},
 		},

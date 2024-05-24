@@ -48,6 +48,39 @@ export const variantOperations: INodeProperties[] = [
 				},
 				action: 'Update a Variant',
 			},
+			{
+				name: 'Add image to a Product Variant',
+				value: 'addImageToVariant',
+				description: 'Add image to a Product Variant',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '={{"/products/" + $parameter["productPid"] + "/variants/" + $parameter["variantPid"] + "/images" }}',
+						body: '={{ JSON.parse($parameter["productDataJson3"]) }}',
+						headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+					}
+				},
+				action: 'Add image to a Product Variant',
+			},
+			{
+				name: 'Delete a Variant',
+				value: 'deleteVariant',
+				description: 'Delete a Variant',
+				routing: {
+					request: {
+						method: 'DELETE',
+						url: '={{"/products/" + $parameter["productPid"] + "/variants/" + $parameter["variantPid"] }}',
+						headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+					}
+				},
+				action: 'Delete a Variant',
+			},
 
 		],
 		default: 'createVariant',
@@ -115,6 +148,80 @@ export const variantFields: INodeProperties[] = [
 			show: {
 				resource: ['variants'],
 				operation: ['updateVariant'],
+			},
+		},
+	},
+	{  //ADD IMAGE TO A PRODUCT VARIANT FIELD
+		displayName: 'Product Pid',
+		name: 'productPid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Pid of the product',
+		displayOptions: {
+			show: {
+				resource: ['variants'],
+				operation: ['addImageToVariant'],
+			},
+		},
+	},
+	{  //ADD IMAGE TO A PRODUCT VARIANT FIELD 2
+		displayName: 'Variant Pid',
+		name: 'variantPid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Pid of the Variant',
+		displayOptions: {
+			show: {
+				resource: ['variants'],
+				operation: ['addImageToVariant'],
+			},
+		},
+	},
+	{//ADD IMAGE TO A PRODUCT VARIANT FORM
+		displayName: 'Attachment',
+		name: 'attachment',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The file to upload as an attachment',
+		typeOptions: {
+				multipleValues: false,
+				multipleValueButtonText: 'Add Attachment',
+		},
+		displayOptions: {
+				show: {
+						resource: ['variants'],
+						operation: ['addImageToVariant'],
+				},
+		},
+	},
+	{  //DELETE A VARIANT FIELD 1
+		displayName: 'Product Pid',
+		name: 'productPid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Pid of the product',
+		displayOptions: {
+			show: {
+				resource: ['variants'],
+				operation: ['deleteVariant'],
+			},
+		},
+	},
+	{  //DELETE A VARIANT FIELD 2 ////
+		displayName: 'Variant Pid',
+		name: 'variantPid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Pid of the Variant',
+		displayOptions: {
+			show: {
+				resource: ['variants'],
+				operation: ['deleteVariant'],
 			},
 		},
 	},
