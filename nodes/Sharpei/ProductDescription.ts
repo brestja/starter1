@@ -81,7 +81,8 @@ export const productOperations: INodeProperties[] = [
 					}
 				},
 				action: 'Update a Product',
-			},{//DELETE A PRODUCT
+			},
+			{//DELETE A PRODUCT
 				name: 'Delete a product',
 				value: 'deleteProduct',
 				description: 'Delete a product',

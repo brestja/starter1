@@ -7,15 +7,14 @@ import {
 export class SharpeiApi implements ICredentialType {
 	name = 'SharpeiApi';
 	displayName = 'Sharpei';
-	// Uses the link to this tutorial as an example
-	// Replace with your own docs links when building your own nodes
-	documentationUrl = 'https://docs.n8n.io/integrations/creating-nodes/build/declarative-style-node/';
+	documentationUrl = 'https://help.gosharpei.com/en/articles/9200905-where-do-i-find-my-api_keys';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'API Key',
+			displayName: 'Private API Key',
 			name: 'apiKey',
 			type: 'string',
 			default: '',
+			placeholder:'Private API key from your Sharpei account.'
 		},
 	];
 	authenticate = {
