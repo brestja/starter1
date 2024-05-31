@@ -13,7 +13,7 @@ export const productOperations: INodeProperties[] = [
 		},
 		options: [
 			{//GET ALL PRODUCTS
-				name: 'Get all products',
+				name: 'List products',
 				value: 'getAll',
 				description: 'Get products',
 				routing: {
@@ -22,7 +22,7 @@ export const productOperations: INodeProperties[] = [
 						url: '/products'
 					}
 				},
-				action: 'Get all products',
+				action: 'List products',
 			},
 			{//GET PRODUCT BY REMOTE ID
 				name: 'Get product by remote Id',

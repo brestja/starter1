@@ -13,7 +13,7 @@ export const ordersOperations: INodeProperties[] = [
 		},
 		options: [
 			{ //GET ORDERS
-				name: 'Get orders',
+				name: 'List orders',
 				value: 'getOrders',
 				description: 'Get orders',
 				routing: {
@@ -25,7 +25,7 @@ export const ordersOperations: INodeProperties[] = [
 						},
 				  }
 				},
-				action: 'Get orders',
+				action: 'List orders',
 			},
 			{ //GET A SINGLE ORDER
 				name: 'Get order',

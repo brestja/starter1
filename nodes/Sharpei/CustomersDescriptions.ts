@@ -41,6 +41,22 @@ export const customersOperations: INodeProperties[] = [
 				},
 				action: 'Create customer',
 			},
+			{ //GET A CUSTOMER
+				name: 'Get a customer',
+				value: 'getCustomer',
+				description: 'Get a customer',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '={{"/customer/" + $parameter["customerPid"] }}',
+						headers: {
+						Accept: '*/*',
+						'Content-Type': 'application/json',
+					},
+					}
+				},
+				action: 'Get customer',
+			},
 		],
 		default: 'getCustomers',
 	},
@@ -97,6 +113,20 @@ export const customersFields: INodeProperties[] = [
 			show: {
 				resource: ['customers'],
 				operation: ['createCustomer'],
+			},
+		},
+	},
+	{  //GET A CUSTOMER FIELD////
+		displayName: 'Customer PID',
+		name: 'customerPid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Customer PID',
+		displayOptions: {
+			show: {
+				resource: ['customers'],
+				operation: ['getCustomer'],
 			},
 		},
 	},
